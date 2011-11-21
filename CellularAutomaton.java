@@ -1,34 +1,8 @@
-/*
-	class members
-	==============
-	none as yet
-	
-	states - variable members
-	======
-	hexagonal
-	chemicals : attractants,repellants,neutral
-	microorganism
-	links to neighbouring cells
-	
-	behaviour - methods
-	========
-	diffusion of chemicals
-	edge automata have constant state
-	ruleset
-	
-	interaction - put in an interface
-	==========
-	addition, removal of chemicals,
-	retrieval of states
-	retrieval of neighbouring automata
-
-
-	
-*/
-
+import java.util.Random;
 
 class CellularAutomaton {
 
+	boolean containsMicroOrganism;
 	double chemoAttract;
 	double chemoRepel;
 	double newChemoAttract;
@@ -38,6 +12,7 @@ class CellularAutomaton {
 	CellularAutomaton() {
 	  chemoAttract = chemoRepel = 0;
 	  N=S=E=W=NE=SE=SW=NW=null;
+	  containsMicroOrganism = false;
 	}
 	CellularAutomaton(CellularAutomaton N, CellularAutomaton S, CellularAutomaton E, CellularAutomaton W, CellularAutomaton NE, CellularAutomaton SE, CellularAutomaton SW, CellularAutomaton NW) {
 	  this.N=N; this.NE=NE;
@@ -53,6 +28,7 @@ class CellularAutomaton {
 
 }
 
+/*
 class CellularAutomatonBorder extends CellularAutomaton {
 
 	CellularAutomatonBorder() {
@@ -66,7 +42,7 @@ class CellularAutomatonBorder extends CellularAutomaton {
 	}
 	public void calcNewChemicals() {}
 	public void setNewChemicals() { chemoRepel = 0; chemoAttract = 0; }
-}
+} */
 
 class CellularAutomataGrid {
 	CellularAutomaton[][] grid;
@@ -94,13 +70,14 @@ class CellularAutomataGrid {
 	    grid[i][size-1] = new CellularAutomatonBorder();
 	  }
 	}
+	/*
 	void createGridInnerBak() {
 	  for (int i=1;i<(size-1);i++) {
 	    for (int j=1;j<(size-1);j++) {
 	      grid[i][j] = new CellularAutomaton();
 	    }
 	  }
-	}
+	} */
 	void createGridInner() {
 	  for (int i=0;i<size;i++) {
 	    for (int j=0;j<size;j++) {
@@ -108,7 +85,7 @@ class CellularAutomataGrid {
 	    }
 	  }
 	}
-
+/*
 	void linkGridBak() {
 	  for (int i=1;i<(size-1);i++) {
 	    for (int j=1;j<(size-1);j++) {
@@ -123,7 +100,7 @@ class CellularAutomataGrid {
 	      tmpCA.NW = grid[i-1][j-1];
 	    }
 	  }
-	}
+	} */
 	void linkGrid() {
 	  for (int i=0;i<size;i++) {
 	    for (int j=0;j<size;j++) {
@@ -145,7 +122,10 @@ class CellularAutomataGrid {
 	  System.out.println();
 	  for (int i=0;i<size;i++) {
 	    for (int j=0;j<size;j++) {
-	      System.out.printf("%5.0f",grid[i][j].chemoAttract);
+	      if (grid[i][j].containsMicroOrganism)
+	        System.out.print(" *** ");
+	      else
+	        System.out.printf("%5.0f",grid[i][j].chemoAttract);
 	    }
 	    System.out.println();
 	  }
@@ -170,19 +150,19 @@ class CellularAutomataGrid {
 
 class testCA {
 	public static void main(String[] args) {
+	  EColi myEColi;
+	  Random randomGenerator = new Random();
 	  CellularAutomataGrid myGrid = new CellularAutomataGrid(42);
-	  myGrid.grid[0][0].chemoAttract = 500;
+	  myGrid.grid[10][10].chemoAttract = 50000.0;
+	  myEColi = new EColi(myGrid.grid[34][28]);
 	  while (true) {
 	    System.out.println(((char) 27)+"[2J");
 	    myGrid.printGrid();
-	    myGrid.diffuseChemicals();
-	    try {
-	      Thread.currentThread().sleep(400);
-	    }
-	    catch (InterruptedException ie) { 
-	      System.err.println("ERROR, Interrupted");
-	      System.exit(-1);
-	    }
+	    if (randomGenerator.nextDouble() < 0.6)
+	      myGrid.diffuseChemicals();
+	    myEColi.move();
+	    try { Thread.currentThread().sleep(800); } catch (InterruptedException ie) { System.err.println("ERROR, Interrupted"); System.exit(-1); }
+
 	  }
 	}
 }
