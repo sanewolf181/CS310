@@ -1,4 +1,5 @@
 import java.util.Random;
+import java.lang.Math;
 
 class CellularAutomaton {
 
@@ -123,7 +124,7 @@ class CellularAutomataGrid {
 	  for (int i=0;i<size;i++) {
 	    for (int j=0;j<size;j++) {
 	      if (grid[i][j].containsMicroOrganism)
-	        System.out.print(" *** ");
+	        System.out.print("\033[0;36m ####\033[0m");
 	      else
 	        System.out.printf("%5.0f",grid[i][j].chemoAttract);
 	    }
@@ -145,22 +146,31 @@ class CellularAutomataGrid {
 	    }
 	  }
 	}
+	CellularAutomaton getRandomCA() {
+	  Random randomGen = new Random();
+	  int x = java.lang.Math.abs(randomGen.nextInt()%size);
+	  int y = java.lang.Math.abs(randomGen.nextInt()%size);
+	  return grid[x][y];
+	}
 	
 }
 
 class testCA {
 	public static void main(String[] args) {
-	  EColi myEColi;
-	  Random randomGenerator = new Random();
+	  EColi ecoli1,ecoli2;
+	  Random randomGen= new Random();
 	  CellularAutomataGrid myGrid = new CellularAutomataGrid(42);
-	  myGrid.grid[10][10].chemoAttract = 50000.0;
-	  myEColi = new EColi(myGrid.grid[34][28]);
+	  myGrid.getRandomCA().chemoAttract = 50000.0;
+	  myGrid.getRandomCA().chemoAttract = 50000.0;
+	  ecoli1 = new EColi(myGrid.getRandomCA());
+	  ecoli2 = new EColi(myGrid.getRandomCA());
 	  while (true) {
 	    System.out.println(((char) 27)+"[2J");
 	    myGrid.printGrid();
-	    if (randomGenerator.nextDouble() < 0.6)
+	    if (randomGen.nextDouble() < 0.6)
 	      myGrid.diffuseChemicals();
-	    myEColi.move();
+	    ecoli1.move();
+	    ecoli2.move();
 	    try { Thread.currentThread().sleep(800); } catch (InterruptedException ie) { System.err.println("ERROR, Interrupted"); System.exit(-1); }
 
 	  }
