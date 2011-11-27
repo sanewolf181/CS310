@@ -1,0 +1,107 @@
+%CS310 Progress Report
+%Hasan Ali
+%0907383
+%November 2011
+
+\documentclass[a4paper,onecolumn,oneside]{article}
+\newcommand{\HRule}{\rule{\linewidth}{0.5mm}}
+\usepackage{tabularx}
+\usepackage{hyperref}
+\usepackage{graphicx}
+
+\begin{document}
+
+\title{{\large A Computational Model of Chemotaxis in E.Coli} \\ [0.4cm] \textbf {Progress Report} }
+\author{Hasan Ali}
+\date{\today}
+\maketitle
+
+\begin{abstract}
+In this progress report, I will show that the design phase for my project has been concluded,
+that all forseeable issues have been overcome, and that my project is on track to be a success.
+I will also detail any changes I have made to my specification in order to make my project realisable.
+\end{abstract}
+
+\section{Project Completion}
+My project has been partially realised so far. I have created a basic, though not accurately modelled simulation of chemotaxis
+behaviour in E.Coli. The graphical display needs considerable work, but does not pose any major issues.
+
+\section{Research Conducted}
+Because my project concerns a subject area which I am not very familiar with,  I have had to 
+do significant research in order to fully comprehend the mechanics behind it, and to make certain that
+my project is feasable. Over the course of the previous weeks, I have realised that my project concerns 
+not only the detailed mechanical algorithms used by bacteria to move about, but also the mathematical models
+of cellular automata, and the physical method of diffusion of a chemical. A more practical concern is
+how to implement the algorithms efficiently as well as accurately, as my simulation must run at a reasonable
+speed.
+
+\subsection{John Conways Game of Life}
+I have also researched John Conways game of life, which 
+\subsection{History of previous research}
+T.W.Englemann -- 1881
+Dennis Bray -- university of cambridge -- 2006
+
+\subsection{Significance of field in Computational Biology}
+I have discovered that accurate simulations of chemotaxis have significant impacts on preventing the spread of disease.
+\subsection{Use of Monte Carlo methods in Computational Biology}
+
+\section{Challenges and Issues}
+I have encountered a challenges in the preliminary implementations of the simulation. These mainly concerning how to make sure my simulation
+accurately models the behaviour of E.Coli
+\subsection{Graphical Interface Issues}
+One of the challenges I will have is how to make my simulation run efficiently -- the preliminary model I have created redraws every cell in the simulation, 
+including those which have not changed. I must rethink my implementation so only those that need are repainted.
+\subsection{Mathematics behind the Simulation}
+I had not considered the depth of the mathematical equations I would need to implement. After doing some research, I have found the the equations are in fact quite complex,
+and will require greater time to accurately model.
+\subsection{Dealing with Edge cells of the Simulation}
+I had not thought of how to deal with the cellular automata at the border of my simulation; in fact at first it appeared I would need a different ruleset to those in the middle. However, 
+after experimenting, I decided that creating an infinite grid of cells would be the best approach, thus forming a toroidal shaped plane. Intuitively, the borders simply wrap round, so going off the top of 
+the grid simply brings you back at the bottom.
+\subsection{Underestimated depth of biology,mathematics and organic chemistry required}
+I underestimated how much of the project would be theoretical, and how much research would be required. \\
+Thus I have rescheduled my timetable to allow time to gain a greater depth of knowledge, and to focus on an accurate simulation rather than superficial features\\
+eg. I am going to focus on E.Coli, in line with previous research.
+\subsection{New skills required to complete project}
+\begin{itemize}
+\item Learning Latex, a high quality typesetting markup language, in order to display mathematical formulae, and write a professional looking final report
+\item Learning how to use research facilities available to me in the library, and online
+\item furthering my experience with the java platform, in particular the use of swing and awt (abstract windowing toolkit)
+\end{itemize}
+\section{Cellular Automata}
+My project seems to be split over two interesting areas - one the theory, and two the implementation. \\
+The theory is the high level of mathematics I will have to go into to accurate model the behaviour of E.Coli. \\
+The implementation is providing efficient algorithms that implement the behaviour, \\
+creating the cellular automata is a significant part of the implementation. \\
+\begin{itemize}
+\item Squares chosen rather than hexagonal. partly for ease of implementation
+\item how to deal with cells at borders
+\item john conways game of life - my inspiration
+\item how to accurately simulate diffusion of chemicals
+
+\end{itemize}
+
+\section{Changes to Specification}
+In order to deal with unforseen challenges, I have had to make a few modification to my specification. These include scheduling changes, different implementation methods, and dropped objectives.
+
+\begin{thebibliography}{9}
+
+\bibitem{bbcnews1}
+  BBC News,
+  \emph{Computer bug study wins top prize},
+  \url{http://news.bbc.co.uk/1/hi/sci/tech/6113522.stm},
+  \date{3 November 2006}.
+
+\bibitem{ecoli1}
+  Diana Clausznitzer, Olga Oleksiuk, Linda Løvdok, Victor Sourjik, Robert G. Endresi, 
+  \emph{Chemotactic Response and Adaptation Dynamics in Escherichia Coli},
+  PLoS Computational Biology, Vol.6,
+  \date{May 2010}
+
+\bibitem{muCell1}
+  Dominic Orchard, Jonathan Gover, Lee Lewis Herrington, James Lohr, Duncan Stead, Cathy Young and Sara Kalvala,
+  \emph{µCell - Interdisciplinary Research in Modelling and Simulation of Cell Spatial Behaviour},
+  Reinvent\'{i}on, Vol.2 Issue 1, \url{http://www2.warwick.ac.uk/fac/cross_fac/iatl/ejournal/issues/volume2issue1/orchard}, \date{30 April 2009}.
+  
+\end{thebibliography}
+\end{document}
